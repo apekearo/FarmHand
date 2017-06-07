@@ -1,0 +1,119 @@
+<!-- form for the new users to have info connect to the employee profile page.
+
+	-->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>New User Form</title>
+		<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Caveat" rel="stylesheet">
+<script src="https://use.fontawesome.com/4f93a840d6.js"></script>
+		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.0.0/firebase.js"></script>
+
+		<script type="text/javascript" src="ejs.js"></script>
+
+</head>
+<body style= "background-color: #C3E6FC">
+
+
+  <div class="container">
+
+    <br>
+
+    <!-- Jumbotron -->
+    <div style= "background-color: #C3E6FC" class="jumbotron">
+      <h1 class="text-center" style="font-size: 75px; background-color: #C3E6FC; font-family: 'Caveat', cursive;
+color: #A52A2A"><i class="fa fa-arrows-alt" aria-hidden="true"></i>Hey Earl</h1>
+    </div>
+    <div class="row">
+
+      <!-- Sign-Up Panel-->
+      <div class="col-lg-6">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">New Member Sign-Up</h3>
+          </div>
+          <div class="panel-body">
+
+            <!-- Sign-up Form (note the various input "types")-->
+            <form role="form">
+              <div class="form-group">
+                <label for="name-input">First Name:</label>
+                <input class="form-control" id="firstName-input" type="text">
+              </div>
+              <div class="form-group">
+                <label for="name-input">Last Name:</label>
+                <input class="form-control" id="lastName-input" type="text">
+              </div>
+              <div class="form-group">
+                <label for="email-input">Email:</label>
+                <input class="form-control" id="email-input" type="email">
+              </div>
+              <div class="form-group">
+                <label for="phone-input">Phone Number:</label>
+                <input class="form-control" id="phone-input" type="number">
+              </div>
+              <div class="form-group">
+                <label for="skills-input">Its General Labor But What Kind Of Skills Do You Have?</label>
+                <textarea class="form-control" id="skills-input" rows="5"></textarea>
+              </div>
+              <button class="btn btn-default" id="add-user" type="submit">Submit</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Most Recent Member Panel -->
+      <!-- <div class="col-lg-6">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Most Recent Member</h3>
+          </div>
+          <div class="panel-body" id="recent-member">
+            <h2 id="firstName-display">Jimmy</h2>
+                        <h2 id="lastName-display">John</h2>
+
+            <h4 id="email-display">Email: jimmy@john.edu</h4>
+            <h4 id="age-display">Age: 27</h4>
+            <p id="comment-display">I'm signing up, because I want to spread sandwiches to the world.</p>
+          </div>
+        </div>
+      </div> -->
+
+    </div>
+
+  </div>
+
+<!-- <h1 style="font-size: large; margin-left: 43%">Texas Farm Hand</h1><hr>
+<h1 style="font-size: large; margin-left: 43%">New User Form</h1>
+
+<form>
+	First Name: <br>
+	<input type="text" name="firstName" id="firstName"><br>
+	Last Name: <br>
+	<input type="text" name="lastName" id="lastName"><br>
+	<input type="radio" name="noCar" value="car">Do you Have a Car that you can drive to the work site<br>
+	<input type="radio" name="noCar" value="car">No car available to get to the work site<br>
+	Hourly Wage Willing to Work for: (please select, haggling may happen later) 
+	<select id="hourly">
+		<option value="5/hr">5/hr</option>
+		<option value="6/hr">6/hr</option>
+		<option value="7/hr">7/hr</option>
+		<option value="8/hr">8/hr</option>
+		<option value="9/hr">9/hr</option>
+		<option value="10/hr">10/hr</option>
+		<option value="11/hr">11/hr</option>
+		<option value="12/hr">12/hr</option>
+		<option value="13/hr">13/hr</option>
+	</select><br>
+
+				<input type="submit" id="submit" name="submit" value="Submit User Profile">
+			<input onclick="submitProfile()" name="submit" type="button" value="Submit User Profile" >
+ 
+
+</form> -->
+<script type="text/javascript" src="farmHand3.js"></script>
+</body>
+</html>

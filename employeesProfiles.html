@@ -1,0 +1,62 @@
+<!-- 1.  will have an opening page that allows users to sign up,   
+2.  first page will show both available workers and employers in the neighborhood using Maps
+3.the maps will use cluster bubble points to locate workers and employers. (it would be nice to have the user see a different map depending if they are looking for or offering employment)
+4. There will be a profile page for each user that shows they work history through the app,(will probably make each user an Object so it will be easy to push new details to each user name)
+5.  The users will be listed in rows, with a small picture and brief information about them, when clicked will accordion open to show more information about the employee or job offered
+6.  Will Use Bootstrap or Materialize to keep things scaled correctly
+7.  there will be two secionts for each employee and employer>< the Employee section>Each Row will have an object with: a name, age, rating of some kind(possibly a facebook rating), the hours they are available to work, whether or not they have a car and willing to pick up others for work, how they prefer the payment, how much they want to get paid,<the EMPLoyeR section> will be the name, age, rating of somekind, the description of the work needed (must be unskilled labor, or taught on site), Are they willing to pick up the employee.  The amount of money willing to be paid and the hours needed for the user.  
+8.  when two users connect saying whether they will accept the employee's offer or employer's offer, they will have an "accept" button and a "Haggle" button, that allows the two to enter a chat room and discuss the work and pay.  
+At the moment; my I will not get involved in the payment process at all, no middle manning yet but I'm leaving room for it, but there will be a review of each other after the work is complete
+At the moment; it will have only one day gigs,  in the future, i will let someone agree for multiple days,  again, you have no problem if these people connect again without the app, you just want people to have work
+
+9.  Possible a calender between users for making work plans, 
+10.  Phone numbers and certain information should not be given until the two are connected  Or maybe just let that be seen once they become user,   so that its kinda like an open board if they want the number to be seen
+11.  a recomdation system and general sillz they have a review page
+,   a haggling ebay like system for bidding big jobs (show like shipping wars), make it attractive for the rural with big easy lettering, target it towards older women,  chores, it will probably be a lot of landscaping, cleaning out boats, 
+
+maybe have it let the home owners who pay the contractor ensure that the helpers are payed as well as expecting the contractors to pay them.  
+
+multi level rating system 
+
+12.  allow employers to post pictures with their job request
+13.  add texting jobs, for users.    maybe it can alerts that are sent to the user as he completes the form in replys,  ,  
+14.  Maybe***good idea***  just allow the employees that are on the site at the moment get the jobs, not ones from yesterday or hour ago,    but the employers can leave a job posted until enough workers can be chosen
+15.  Give them a chance to call the work not right, such as the work wasn't described properly
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<link href="https://fonts.googleapis.com/css?family=Caveat" rel="stylesheet">
+<script src="https://use.fontawesome.com/4f93a840d6.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.0.0/firebase.js"></script>
+<!-- 	<script type="text/javascript" src="ejs.js"></script>
+ --><script type="text/javascript" src="farmHand3.js"></script>
+<title>the employees</title>
+</head>
+<body style= "background-color: #C3E6FC";>
+<header style="font-size: 75px; margin-left: 43%; font-family: 'Caveat', cursive;
+color: #A52A2A"><i class="fa fa-arrows-alt" aria-hidden="true"></i>Hey Earl</header>
+<hr>
+<!-- <h3 id="connected-viewers">0</h3>
+<h2 id="firstName-display">John</h2>
+<h2 id="lastName-display">Wayne</h2>
+            <h4 id="email-display">Email: jimmy@john.edu</h4>
+            <h4 id="phone-display">Age: 27</h4>
+            <p id="skills-display">I'm signing up, because I want to spread sandwiches to the world.</p>
+ -->
+<table id="profileTable" style="width: 80%; border:0.5px solid grey">
+	<caption>Available Employees</caption>
+	<tr>
+		<!-- <td><img src="#">John Mark<br>has a car</td>
+				<td>Willing to work for 8/hr</td> -->
+	</tr>
+</table>
+</body>
+</html>
