@@ -6,8 +6,17 @@
 // 4. Create a way to retrieve trains from the trainlist.
 // 5. Create a way to calculate the time way. Using difference between start and current time.
 //    Then take the difference and modulus by frequency. (This step can be completed in either 3 or 4)
-
+var userCurrentLocation;
 // Initialize Firebase
+navigator.geolocation.getCurrentPosition(function(position) {
+  userCurrentLocation = {
+    latitude: position.coords.latitude,
+    longitude: position.coords.longitude,
+  }
+  console.log(position);
+  // do_something(position.coords.latitude, position.coords.longitude);
+});
+
 var config = {
     apiKey: "AIzaSyCbY-BQ0s-i-9iZKcfJHjnPXCRsDooHzcE",
     authDomain: "kopperlfarmhand-1492557353717.firebaseapp.com",
@@ -21,23 +30,28 @@ firebase.auth().signInAnonymously().catch(function(error) {
   // Handle Errors here.
   var errorCode = error.code;
   var errorMessage = error.message;
+  alert("error " + errorMessage)
   // ...
 });
 
-var uid;
+/**
+Deprecated - why   because dondt need auth changed, because it doesn't matt
+whether or not somoneone is signed in
+*/
+// var uid;
 
-firebase.auth().onAuthStateChanged(function(user) {
-  if (user) {
-    // User is signed in.
-    var isAnonymous = user.isAnonymous;
-    uid = user.uid;
-    // ...
-  } else {
-    // User is signed out.
-    // ...
-  }
-  // ...
-});
+// firebase.auth().onAuthStateChanged(function(user) {
+//   if (user) {
+//     // User is signed in.
+//     var isAnonymous = user.isAnonymous;
+//     uid = user.uid;
+//     // ...
+//   } else {
+//     // User is signed out.
+//     // ...
+//   }
+//   // ...
+// });
 
 var trainData = firebase.database();
 
@@ -46,7 +60,9 @@ var trainData = firebase.database();
 $("#add-user").on("click", function() {
 
   // Grabs user input
- var firstName = $("#firstName-input").val().trim();
+ var fnInput = $("#firstName-input");
+ var firstName = fnInput.val().trim();
+ console.log(firstName)
  var lastName = $("#lastName-input").val().trim();
  var email = $("#email-input").val().trim();
   var phone = $("#phone-input").val().trim();
@@ -63,7 +79,7 @@ $("#add-user").on("click", function() {
   };
 
   // Uploads train data to the database
-  trainData.ref().child(uid).push(newTrain);
+  trainData.ref().child('users').child('+1' + phone).push(newTrain);
 
   // Logs everything to console
   console.log(newTrain.firstName);
@@ -75,82 +91,118 @@ $("#add-user").on("click", function() {
   alert("User Logged Properly!");
 
   // Clears all of the text-boxes
-  $("#firstName-display").val("");
-  $("#lastName-display").val("");
-  $("#email-display").val("");
-  $("#phone-display").val("");
-  $("#skills-display").val("");
+  fnInput.val("");
+  $("#lastName-input").val("");
+  $("#email-input").val("");
+  $("#phone-input").val("");
+  $("#skills-input").val("");
 
   // Determine when the next train arrives.
   return false;
 });
 
 // 4. Create Firebase event for adding trains to the database and a row in the html when a user adds an entry
-trainData.ref().on("child_added", function(childSnapshot, prevChildKey) {
+// var userRef= firebase.database().ref("user").push();
+// var geoFire= new GeoFire(firebaseRef.child("geofire"));
+// geoFire.set(userLocation, [<lat>,<long>]).then(function() {
+//  console.log(“Location added”)
+//  }).catch(function(error) {
+//  console.log(error);
+//  });
+trainData.ref().child('users').on("child_added", function(childSnapshot, prevChildKey) {
 
   console.log(childSnapshot.val());
   var user = childSnapshot.val();
   var data = Object.values(user);
-
+console.log(data, 'data');
   for(var i = 0; i < data.length; i++) {
         var tfirstName = data[i].firstName;
   var tlastName = data[i].lastName;
   var temail = data[i].email;
-  var tphone = data[i].phone;
+  var tphone = data[i].phone || data[i].From;
   var tskills = data[i].skills;
-      $("#profileTable > tbody").append("<tr><td>" + tfirstName + "</td><td>" + tlastName + "</td><td>"
-  + temail + "</td><td>" + tphone + "</td><td>" + tskills + "</td></tr>");
+
+// + data-index = i +
+
+  $("#profileTable > tbody").append('<tr id="modal'+i+'">'+ '<td>'
+   + tfirstName + "</td><td>" + tlastName + "</td><td>"
+  + temail + "</td><td>" + tphone + "</td><td>" + tskills
+   + "</td></tr>").on('click', function(){
+    $("#modal0").modal("show");
+    // $("#profileTable").append("")
+  })
+  
+ 
   }
-  // Store everything into a variable.
+ });
 
-  // Calculate the minutes until arrival using hardcore math
-  // To calculate the minutes till arrival, take the current time in unix subtract the FirstTrain time
-  // and find the modulus between the difference and the frequency.
-          // var differenceTimes = moment().diff(moment.unix(tFirstTrain), "minutes");
-          // var tRemainder = moment().diff(moment.unix(tFirstTrain), "minutes") % tFrequency;
-          // var tMinutes = tFrequency - tRemainder;
+// $("#profileTable > tbody").append('<tr id="modal'+i+'">'
+//     + '<div class="modal">'
+//   + '<div class="modal-dialog"><div class="modal-content"><div class="modal-header">' 
+//   + '<button type="button" class="close" data-dismiss="modal">'
+//   + '&times;</button><h4 class="modal-title">Modal Header</h4>'
+//   + '</div><div class="modal-body"><p>Some text in the modal.</p>'
+//   + '</div><div class="modal-footer">'
+//   + '<button type="button" class="btn btn-default" data-dismiss="modal">'
+//   + 'Close</button></div></div></div></div><td>'
+//    + tfirstName + "</td><td>" + tlastName + "</td><td>"
+//   + temail + "</td><td>" + tphone + "</td><td>" + tskills
+//    + "</td></tr>").on('click', function(){
+//     $("#modal0").modal("show");
+//     // $("#profileTable").append("")
+//   })
+  
+ 
+//   }
+//  });
 
-          // // To calculate the arrival time, add the tMinutes to the currrent time
-          // var tArrival = moment().add(tMinutes, "m").format("hh:mm A");
+ // function initMap() {
 
-          // console.log(tMinutes);
-          // console.log(tArrival);
-          // console.log(moment().format("hh:mm A"));
-          // console.log(tArrival);
-          // console.log(moment().format("X"));
+ //        var map = new google.maps.Map(document.getElementById('map'), {
+ //          zoom: 3,
+ //          center: {lat: -28.024, lng: 140.887}
+ //        });
 
-  // Add each train's data into the table
-});
+ //        // Create an array of alphabetical characters used to label the markers.
+ //        var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
-// Assume the following situations.
+ //        // Add some markers to the map.
+ //        // Note: The code uses the JavaScript Array.prototype.map() method to
+ //        // create an array of markers based on a given "locations" array.
+ //        // The map() method here has nothing to do with the Google Maps API.
+ //        var markers = locations.map(function(location, i) {
+ //          return new google.maps.Marker({
+ //            position: location,
+ //            label: labels[i % labels.length]
+ //          });
+ //        });
 
-// (TEST 1)
-// First Train of the Day is 3:00 AM
-// Assume Train comes every 3 minutes.
-// Assume the current time is 3:16 AM....
-// What time would the next train be...? ( Let's use our brains first)
-// It would be 3:18 -- 2 minutes away
-
-// (TEST 2)
-// First Train of the Day is 3:00 AM
-// Assume Train comes every 7 minutes.
-// Assume the current time is 3:16 AM....
-// What time would the next train be...? (Let's use our brains first)
-// It would be 3:21 -- 5 minutes away
-
-
-// ==========================================================
-
-// Solved Mathematically
-// Test case 1:
-// 16 - 00 = 16
-// 16 % 3 = 1 (Modulus is the remainder)
-// 3 - 1 = 2 minutes away
-// 2 + 3:16 = 3:18
-
-// Solved Mathematically
-// Test case 2:
-// 16 - 00 = 16
-// 16 % 7 = 2 (Modulus is the remainder)
-// 7 - 2 = 5 minutes away
-// 5 + 3:16 = 3:21
+ //        // Add a marker clusterer to manage the markers.
+ //        var markerCluster = new MarkerClusterer(map, markers,
+ //            {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+ //      }
+ //      var locations = [
+ //        {lat: -31.563910, lng: 147.154312},
+ //        {lat: -33.718234, lng: 150.363181},
+ //        {lat: -33.727111, lng: 150.371124},
+ //        {lat: -33.848588, lng: 151.209834},
+ //        {lat: -33.851702, lng: 151.216968},
+ //        {lat: -34.671264, lng: 150.863657},
+ //        {lat: -35.304724, lng: 148.662905},
+ //        {lat: -36.817685, lng: 175.699196},
+ //        {lat: -36.828611, lng: 175.790222},
+ //        {lat: -37.750000, lng: 145.116667},
+ //        {lat: -37.759859, lng: 145.128708},
+ //        {lat: -37.765015, lng: 145.133858},
+ //        {lat: -37.770104, lng: 145.143299},
+ //        {lat: -37.773700, lng: 145.145187},
+ //        {lat: -37.774785, lng: 145.137978},
+ //        {lat: -37.819616, lng: 144.968119},
+ //        {lat: -38.330766, lng: 144.695692},
+ //        {lat: -39.927193, lng: 175.053218},
+ //        {lat: -41.330162, lng: 174.865694},
+ //        {lat: -42.734358, lng: 147.439506},
+ //        {lat: -42.734358, lng: 147.501315},
+ //        {lat: -42.735258, lng: 147.438000},
+ //        {lat: -43.999792, lng: 170.463352}
+ //      ]

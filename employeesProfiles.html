@@ -30,18 +30,66 @@ multi level rating system
 <meta charset="utf-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 <link href="https://fonts.googleapis.com/css?family=Caveat" rel="stylesheet">
 <script src="https://use.fontawesome.com/4f93a840d6.js"></script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
 <script src="https://www.gstatic.com/firebasejs/4.0.0/firebase.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script src="https://cdn.firebase.com/libs/geofire/4.1.2/geofire.min.js"></script>
+
 <!-- 	<script type="text/javascript" src="ejs.js"></script>
  --><script type="text/javascript" src="farmHand3.js"></script>
-<title>the employees</title>
+<style type="text/css">
+	th {
+		border-bottom: 1px solid #d6d6d6;
+	}
+
+	tr:nth-child(even) {background: #e9e9e9;
+	}
+
+	.tablink {
+		background-color: #555;
+    color: white;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    font-size: 17px;
+    width: 50%;
+	}
+
+	.tablink:hover {
+		background-color: #777;
+	}
+
+	.tabcontent {
+		color: white;
+		display: none;
+		padding: 50px;
+		text-align: center;
+	}
+
+	#employee {
+		background-color: #C3E6FC;
+	}
+	#employer {
+		background-color: red;
+	}
+
+	#map {
+        height: 100%;
+      }
+
+</style>
+
+<title>post page</title>
 </head>
-<body style= "background-color: #C3E6FC";>
-<header style="font-size: 75px; margin-left: 43%; font-family: 'Caveat', cursive;
+<body data-role="page" style= "background-color: #C3E6FC";>
+<header data-role="header" style="font-size: 75px; margin-left: 43%; font-family: 'Caveat', cursive;
 color: #A52A2A"><i class="fa fa-arrows-alt" aria-hidden="true"></i>Hey Earl</header>
 <hr>
 <!-- <h3 id="connected-viewers">0</h3>
@@ -50,13 +98,67 @@ color: #A52A2A"><i class="fa fa-arrows-alt" aria-hidden="true"></i>Hey Earl</hea
             <h4 id="email-display">Email: jimmy@john.edu</h4>
             <h4 id="phone-display">Age: 27</h4>
             <p id="skills-display">I'm signing up, because I want to spread sandwiches to the world.</p>
- -->
-<table id="profileTable" style="width: 80%; border:0.5px solid grey">
-	<caption>Available Employees</caption>
+ P -->
+ <div id="map" style="float:right;width:200px;height:200px;"></div>
+ <div data-role="main" class="container ui-content"><div data-role="header"><h3>Available Employees</h3></div>
+<ul class="nav nav-tabs">
+	<li class="active"> <a data-toggle="tab" href = "#employee">Employees</a>
+	</li>
+	<li><a data-toggle="tab" href="#employer">Employers</a>
+	</li>
+	</ul>
+
+	<!-- trying to adding tabs, that will go between two Id's but will need the backend caught up too for that,  but it will be here -->
+
+ <table id="profileTable" style="width: 80%; border:0.5px solid grey">
 	<tr>
-		<!-- <td><img src="#">John Mark<br>has a car</td>
-				<td>Willing to work for 8/hr</td> -->
 	</tr>
+		<!-- <!-- <td><img src="#">John Mark<br>has a car</td>
+				<td>Willing to work for 8/hr</td> -->
+	
 </table>
+
+<div class="modal" id="modal0" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+   <div class="modal-dialog"><div class="modal-content"><div class="modal-header"> 
+  <button type="button" class="close" data-dismiss="modal">
+  &times;</button><h4 class="modal-title">Modal Header</h4>
+  </div><div class="modal-body"><p>Some text in the modal.</p>
+   </div><div class="modal-footer">
+   <button type="button" class="btn btn-default" data-dismiss="modal">
+   Close</button></div></div></div></div>
+
+<!--<div class="modal" id="modal">
+	<div class="modal-dialog">\
+		<div class="modal-dialog">
+  </div>-->
+  <!--<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
+  <div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <!--<div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Modal Header</h4>
+      </div>
+      <div class="modal-body">
+        <p>Some text in the modal.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>-->
+
+
+	<div data-role="footer">
+		<h3>Only shows posts for a week</h3>
+		</div>
+</div>
+<!-- <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCC2bn09ZM8jNrPx2UDsb96a0ql3BTssvs&libraries=visualization&callback=initMap">
+    </script> -->
 </body>
 </html>
