@@ -133,7 +133,7 @@ trainData.ref().child('users').on("child_added", function(childSnapshot, prevChi
         var tskills = data[i].skills;
 
         // + data-index = i +
-        $("body").append('<div class="modal" id="modal' + j + '" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"> '+temail + '<button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title">Modal Header</h4></div><div class="modal-body"><p>Some text in the modal.</p></div><div class="modal-footer"><button type="button" class="btn btn-default" data-dismiss="modal">Close</button></div></div></div></div>');
+        $("body").append('<div class="modal" id="modal' + j + '" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"> '+tfirstName + tlastName + '<button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title">'+ tphone +'<br>' +temail+'</h4></div><div class="modal-body"><p>'+tskills+'</p></div><div class="modal-footer"><button type="button" class="btn btn-default" data-dismiss="modal">Close</button></div></div></div></div>');
 
         $("#profileTable > tbody").append('<tr data-j="' + j + '" id="row' + i + '">' + '<td>' +
             tfirstName + "</td><td>" + tlastName + "</td><td>" +
