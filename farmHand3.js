@@ -10,9 +10,10 @@ var userCurrentLocation;
 // Initialize Firebase
 navigator.geolocation.getCurrentPosition(function(position) {
     userCurrentLocation = {
-        latitude: position.coords.latitude,
-        longitude: position.coords.longitude,
+        lat: position.coords.latitude,
+        lng: position.coords.longitude,
     }
+    initMap(userCurrentLocation.lat, userCurrentLocation.lng)
     console.log(position);
     // do_something(position.coords.latitude, position.coords.longitude);
 });
@@ -67,6 +68,9 @@ $("#add-user").on("click", function() {
     var email = $("#email-input").val().trim();
     var phone = $("#phone-input").val().trim();
     var skills = $("#skills-input").val().trim();
+    var car = $(".car-input").val();
+    var jobLocation = $(".jobLocation").val().trim();
+    var type = $("input[name='type']:checked").val();
 
     // Creates local "temporary" object for holding train data
     var newTrain = {
@@ -75,16 +79,22 @@ $("#add-user").on("click", function() {
         lastName: lastName,
         email: email,
         phone: phone,
-        skills: skills
+        skills: skills,
+        car: car,
+        jobLocation: jobLocation,
+        type: type,
+        lat:userCurrentLocation.lat,
+        lng:userCurrentLocation.lng
     };
 
     // Uploads train data to the database
-    trainData.ref().child('users').child('+1' + phone).push(newTrain);
+    trainData.ref().child('users').child(type).child('+1' + phone).push(newTrain);
 
     // Logs everything to console
     console.log(newTrain.firstName);
     console.log(newTrain.skills);
     console.log(newTrain.phone);
+    console.log(newTrain.car);
 
 
     // Alert
@@ -96,6 +106,9 @@ $("#add-user").on("click", function() {
     $("#email-input").val("");
     $("#phone-input").val("");
     $("#skills-input").val("");
+    $(".car-input").val("");
+    $(".jobLocation").val("");
+    $(".type").val("");
 
     // Determine when the next train arrives.
     return false;
@@ -113,39 +126,67 @@ $("#add-user").on("click", function() {
 
 var j = 0;
 
-$(document).on( 'click', 'tr', function() {
+$(document).on('click', 'tr', function() {
     console.log($(this).data('j'));
     $("#modal" + $(this).data('j')).modal("toggle");
     // $("#profileTable").append("")
 })
-trainData.ref().child('users').on("child_added", function(childSnapshot, prevChildKey) {
 
-    console.log(childSnapshot.val());
-    var user = childSnapshot.val();
-    var data = Object.values(user);
-    console.log(data, 'data');
-    j++;
-    for (var i = 0; i < data.length; i++) {
-        var tfirstName = data[i].firstName;
-        var tlastName = data[i].lastName;
-        var temail = data[i].email;
-        var tphone = data[i].phone || data[i].From;
-        var tskills = data[i].skills;
+// $('#employee').on('click', function() {
+//   getData('employee')
+// })
+// function getData(node) {
+//   // Get data from firebase based on the node
+//   trainData.ref().child(node).on("child_added", function(childSnapshot, prevChildKey){
+//     // Show the data on html
+//   })
+// }
+// value instead of childadded
+function reloadTable(type) {
 
-        // + data-index = i +
-        $("body").append('<div class="modal" id="modal' + j + '" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"> '+tfirstName + tlastName + '<button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title">'+ tphone +'<br>' +temail+'</h4></div><div class="modal-body"><p>'+tskills+'</p></div><div class="modal-footer"><button type="button" class="btn btn-default" data-dismiss="modal">Close</button></div></div></div></div>');
+    // trainData.ref().child('users').child('employee').off();
+    // trainData.ref().child('users').child('employer').off();
+    trainData.ref().child('users').child(type).on("value", function(childSnapshot, prevChildKey) {
 
-        $("#profileTable > tbody").append('<tr data-j="' + j + '" id="row' + i + '">' + '<td>' +
-            tfirstName + "</td><td>" + tlastName + "</td><td>" +
-            temail + "</td><td>" + tphone + "</td><td>" + tskills +
-            "</td></tr>")
+        $("#profileTable > tbody").empty();
+        $('.modal').remove();
+        locations= [];
+        console.log(childSnapshot.val());
+        var user = childSnapshot.val();
+        var data = Object.values(user);
+        console.log(data, 'data');
+        var realData = [];
+        data.forEach(item => {
+          var value = Object.values(item);
+          realData = realData.concat(value);
+        });
+        console.log(realData);
+        for (var i = 0; i < realData.length; i++) {
+            var infoObject
+            var tfirstName = realData[i].firstName;
+            var tlastName = realData[i].lastName;
+            var temail = realData[i].email;
+            var tphone = realData[i].phone || data[i].From;
+            var tskills = realData[i].skills;
+            var tcar = realData[i].car;
+            var tjobLocation = realData[i].jobLocation;
+            var ttype = realData[i].type;
+            var lat = realData[i].lat;
+            var lng = realData[i].lng 
 
+            locations.push({lat, lng})
+            // + data-index = i +
+            $("body").append('<div class="modal" id="modal' + i + '" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"> ' + tfirstName + tlastName + '<button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title">' + tphone + '<br>' + temail + tcar + tjobLocation + '</h4></div><div class="modal-body"><p>' + tskills + '</p></div><div class="modal-footer"><button type="button" class="btn btn-default" data-dismiss="modal">Close</button></div></div></div></div>');
 
-      // throw an if state ment for the emailinput and other map location
+            $("#profileTable > tbody").append('<tr data-j="' + i + '" id="row' + i + '">' + '<td>' +
+                tfirstName + "</td><td>" + tlastName + tjobLocation + "</td><td>" + tskills +
+                "</td></tr>")
+            // throw an if state ment for the emailinput and other map location
+        }
 
-
-    }
-});
+            initMap(userCurrentLocation.lat, userCurrentLocation.lng);
+    });
+}
 
 
 // $("#profileTable > tbody").append('<tr id="modal'+i+'">'
@@ -167,14 +208,14 @@ trainData.ref().child('users').on("child_added", function(childSnapshot, prevChi
 
 //   }
 //  });
+// initMap(lat, lon, 'modalMap')
+function initMap(lat, lon, mapID = "map") {
 
-function initMap() {
-
-    var map = new google.maps.Map(document.getElementById('map'), {
+    var map = new google.maps.Map(document.getElementById(mapID), {
         zoom: 3,
         center: {
-            lat: -28.024,
-            lng: 140.887
+            lat: lat || -28.024,
+            lng: lon || 140.887
         }
     });
 
@@ -197,73 +238,4 @@ function initMap() {
         imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'
     });
 }
-var locations = [{
-    lat: -31.563910,
-    lng: 147.154312
-}, {
-    lat: -33.718234,
-    lng: 150.363181
-}, {
-    lat: -33.727111,
-    lng: 150.371124
-}, {
-    lat: -33.848588,
-    lng: 151.209834
-}, {
-    lat: -33.851702,
-    lng: 151.216968
-}, {
-    lat: -34.671264,
-    lng: 150.863657
-}, {
-    lat: -35.304724,
-    lng: 148.662905
-}, {
-    lat: -36.817685,
-    lng: 175.699196
-}, {
-    lat: -36.828611,
-    lng: 175.790222
-}, {
-    lat: -37.750000,
-    lng: 145.116667
-}, {
-    lat: -37.759859,
-    lng: 145.128708
-}, {
-    lat: -37.765015,
-    lng: 145.133858
-}, {
-    lat: -37.770104,
-    lng: 145.143299
-}, {
-    lat: -37.773700,
-    lng: 145.145187
-}, {
-    lat: -37.774785,
-    lng: 145.137978
-}, {
-    lat: -37.819616,
-    lng: 144.968119
-}, {
-    lat: -38.330766,
-    lng: 144.695692
-}, {
-    lat: -39.927193,
-    lng: 175.053218
-}, {
-    lat: -41.330162,
-    lng: 174.865694
-}, {
-    lat: -42.734358,
-    lng: 147.439506
-}, {
-    lat: -42.734358,
-    lng: 147.501315
-}, {
-    lat: -42.735258,
-    lng: 147.438000
-}, {
-    lat: -43.999792,
-    lng: 170.463352
-}]
+var locations = []

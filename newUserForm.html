@@ -12,20 +12,19 @@
 		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.0.0/firebase.js"></script>
 <script src="https://cdn.firebase.com/libs/geofire/4.1.2/geofire.min.js"></script>
-
+<script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
 		<script type="text/javascript" src="ejs.js"></script>
 
 </head>
-<body style= "background-color: #C3E6FC">
+<body style= "background-image: url('tileBack.jpg')">
 
-
-  <div class="container">
+<div class="container" style="background-image: url('tileBack.jpg')">  
 
     <br>
 
     <!-- Jumbotron -->
-    <div style= "background-color: #C3E6FC" class="jumbotron">
-      <h1 class="text-center" style="font-size: 75px; background-color: #C3E6FC; font-family: 'Caveat', cursive;
+    <div class="jumbotron">
+      <h1 class="text-center" style="font-size: 75px; background-image: url('tileBack.jpg'); font-family: 'Caveat', cursive;
 color: #A52A2A"><i class="fa fa-arrows-alt" aria-hidden="true"></i>Hey Earl</h1>
     </div>
     <div class="row">
@@ -40,6 +39,11 @@ color: #A52A2A"><i class="fa fa-arrows-alt" aria-hidden="true"></i>Hey Earl</h1>
 
             <!-- Sign-up Form (note the various input "types")-->
             <form role="form">
+              <div class="form-group">
+                <label> Are you an Employee or Employer</label>
+                <input type="radio" name="type" class="form-control type" value="employee">Employee<br>
+                <input type="radio" name="type" class="form-control type" value="employer">Employer<br>
+                </div>
               <div class="form-group">
                 <label for="name-input">First Name:</label>
                 <input class="form-control" id="firstName-input" type="text">
@@ -56,6 +60,15 @@ color: #A52A2A"><i class="fa fa-arrows-alt" aria-hidden="true"></i>Hey Earl</h1>
                 <label for="phone-input">Phone Number:</label>
                 <input class="form-control" id="phone-input" type="number">
               </div>
+              <div class="form-group">
+                <label for="car-input">Do you have transportation?</label>
+                <input type="radio" name="car" class="form-control car-input" value="car">I'll Drive<br>
+                <input type="radio" name="car" class="form-control car-input" value="noCar">I need a ride<br>
+              </div>
+              <div class = "form-group">
+                <label for = "jobLocation">Whats the name of the town?</label>
+                <input type = "input" class="jobLocation">
+                </div>
               <div class="form-group">
                 <label for="skills-input">Its General Labor But What Kind Of Skills Do You Have?</label>
                 <textarea class="form-control" id="skills-input" rows="5"></textarea>

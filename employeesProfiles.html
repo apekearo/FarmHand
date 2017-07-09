@@ -37,7 +37,7 @@ multi level rating system
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
 <script src="https://www.gstatic.com/firebasejs/4.0.0/firebase.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
+<script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
 <script src="https://cdn.firebase.com/libs/geofire/4.1.2/geofire.min.js"></script>
 
 <!-- 	<script type="text/javascript" src="ejs.js"></script>
@@ -75,6 +75,7 @@ multi level rating system
 
 	#employee {
 		background-color: #C3E6FC;
+    display: inline-block;
 	}
 	#employer {
 		background-color: red;
@@ -83,12 +84,45 @@ multi level rating system
 	#map {
         height: 100%;
       }
+.tab{
+  overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+}
 
+/* Style the buttons inside the tab */
+.tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+    background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+    background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+}
 </style>
 
 <title>post page</title>
 </head>
-<body data-role="page" style= "background-color: #C3E6FC";>
+<body data-role="page" style= "background-image: url('tileBack.jpg')";>
 <header data-role="header" style="font-size: 75px; margin-left: 43%; font-family: 'Caveat', cursive;
 color: #A52A2A"><i class="fa fa-arrows-alt" aria-hidden="true"></i>Hey Earl</header>
 <hr>
@@ -100,23 +134,56 @@ color: #A52A2A"><i class="fa fa-arrows-alt" aria-hidden="true"></i>Hey Earl</hea
             <p id="skills-display">I'm signing up, because I want to spread sandwiches to the world.</p>
  P -->
  <div id="map" style="float:right;width:200px;height:200px;"></div>
- <div data-role="main" class="container ui-content"><div data-role="header"><h3>Available Employees</h3></div>
-<ul class="nav nav-tabs">
-	<li class="active"> <a data-toggle="tab" href = "#employee">Employees</a>
-	</li>
-	<li><a data-toggle="tab" href="#employer">Employers</a>
-	</li>
-	</ul>
+ <div data-role="main" class="container ui-content"><div data-role="header"><h3>Hire Someone From The Community</h3></div>
+<div class="tab">
+	<button class="tablinks" onclick="openEmployee(event, 'employee')">Employee</button>
+  <button class="tablinks" onclick="openEmployee(event, 'employer')">Employer</button>
+	<div id="employee" class="tabcontent">
+    <table id="profileTable" style="width: 80%; border:0.5px solid grey">
+  <tr>
+  </tr></table></div>
+
+  <script type="text/javascript">
+    reloadTable('employer');
+    function openEmployee(evt, type) {
+      reloadTable(type);
+
+    // Declare all variables
+    // var i, tabcontent, tablinks;
+
+    // // Get all elements with class="tabcontent" and hide them
+    // tabcontent = document.getElementsByClassName("tabcontent");
+    // for (i = 0; i < tabcontent.length; i++) {
+    //     tabcontent[i].style.display = "none";
+    // }
+
+    // // Get all elements with class="tablinks" and remove the class "active"
+    // tablinks = document.getElementsByClassName("tablinks");
+    // for (i = 0; i < tablinks.length; i++) {
+    //     tablinks[i].className = tablinks[i].className.replace(" active", "");
+    // }
+
+    // // Show the current tab, and add an "active" class to the button that opened the tab
+    // document.getElementById('employee').style.display = "block";
+    // evt.currentTarget.className += " active";
+
+    // document.getElementById('employer').style.display = "block";
+    //   evt.currentTarget.className += "active";
+}
+  </script>
+	
+  <!-- <div id = "employee" class="tabcontent">
+  <table class="profileTable" style="width: 80%; border:0.5px solid grey">
+  <tr>
+  </tr></table></div> -->
 
 	<!-- trying to adding tabs, that will go between two Id's but will need the backend caught up too for that,  but it will be here -->
 
- <table id="profileTable" style="width: 80%; border:0.5px solid grey">
-	<tr>
-	</tr>
+ 
 		<!-- <!-- <td><img src="#">John Mark<br>has a car</td>
 				<td>Willing to work for 8/hr</td> -->
 	
-</table>
+
 
 <div class="modal" id="modal0" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
    <div class="modal-dialog"><div class="modal-content"><div class="modal-header"> 
@@ -157,8 +224,8 @@ color: #A52A2A"><i class="fa fa-arrows-alt" aria-hidden="true"></i>Hey Earl</hea
 		<h3>Only shows posts for a week</h3>
 		</div>
 </div>
-<!-- <script async defer
+<script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCC2bn09ZM8jNrPx2UDsb96a0ql3BTssvs&libraries=visualization&callback=initMap">
-    </script> -->
+    </script>
 </body>
 </html>
