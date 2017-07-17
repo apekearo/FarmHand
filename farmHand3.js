@@ -176,10 +176,10 @@ function reloadTable(type) {
 
             locations.push({lat, lng})
             // + data-index = i +
-            $("body").append('<div class="modal" id="modal' + i + '" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"> ' + tfirstName + tlastName + '<button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title">' + tphone + '<br>' + temail + tcar + tjobLocation + '</h4></div><div class="modal-body"><p>' + tskills + '</p></div><div class="modal-footer"><button type="button" class="btn btn-default" data-dismiss="modal">Close</button></div></div></div></div>');
+            $("body").append('<div class="modal" id="modal' + i + '" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"> ' + tfirstName + " " + tlastName + '<button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title">' + tphone + '<br>' + temail +"**" + tcar + "**" + tjobLocation + '</h4></div><div class="modal-body"><p>' + tskills + '</p></div><div class="modal-footer"><button type="button" class="btn btn-default" data-dismiss="modal">Close</button></div></div></div></div>');
 
             $("#profileTable > tbody").append('<tr data-j="' + i + '" id="row' + i + '">' + '<td>' +
-                tfirstName + "</td><td>" + tlastName + tjobLocation + "</td><td>" + tskills +
+                tfirstName + "</td><td>" + tlastName + "</td><td>" + tjobLocation + "</td><td>" + tskills +
                 "</td></tr>")
             // throw an if state ment for the emailinput and other map location
         }
@@ -188,6 +188,9 @@ function reloadTable(type) {
     });
 }
 
+
+
+// ***********************make a date query for each entry and only pull into the table things from the last week**********************8
 
 // $("#profileTable > tbody").append('<tr id="modal'+i+'">'
 //     + '<div class="modal">'

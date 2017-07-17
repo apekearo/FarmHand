@@ -118,14 +118,16 @@ multi level rating system
     border: 1px solid #ccc;
     border-top: none;
 }
+td { 
+padding:30px; }
 </style>
 
 <title>post page</title>
 </head>
-<body data-role="page" style= "background-image: url('tileBack.jpg')";>
+<body data-role="page" style= "background-image: url('orangeBack.jpg')";>
 <header data-role="header" style="font-size: 75px; margin-left: 43%; font-family: 'Caveat', cursive;
 color: #A52A2A"><i class="fa fa-arrows-alt" aria-hidden="true"></i>Hey Earl</header>
-<hr>  <a href="newUserForm.html" style="text-decoration: underline; color: red">Enter a submission!</a>
+<hr> <a href="newUserForm.html" style="display: block; width: 305px; height: 25px; background-color: lime; color: red; padding: 10px; padding-bottom: 20px; text-align: center">Enter a submission!</a>
 <!-- <h3 id="connected-viewers">0</h3>
 <h2 id="firstName-display">John</h2>
 <h2 id="lastName-display">Wayne</h2>
@@ -136,10 +138,16 @@ color: #A52A2A"><i class="fa fa-arrows-alt" aria-hidden="true"></i>Hey Earl</hea
  <div id="map" style="float:right;width:200px;height:200px;"></div>
  <div data-role="main" class="container ui-content"><div data-role="header"><h3>Hire Someone From The Community</h3></div>
 <div class="tab">
-	<button class="tablinks" onclick="openEmployee(event, 'employee')">Employee</button>
-  <button class="tablinks" onclick="openEmployee(event, 'employer')">Employer</button>
+	<button class="tablinks" style="border: 0.8px" onclick="openEmployee(event, 'employee')">Employee</button>
+  <button class="tablinks" onclick="openEmployee(event, 'employer')">Employer</button></div><br>
 	<div id="employee" class="tabcontent">
-    <table id="profileTable" style="width: 80%; border:0.5px solid grey">
+    <table id="profileTable" style="width: 100%; border:0.8px solid grey; color: black; margin-bottom: 8px;">
+    <!-- <tr>
+      <th> First Name </th>
+      <th> Last Name </th>
+      <th> Location </th>
+      <th> Details </th>
+    </tr> -->
   <tr>
   </tr></table></div>
 
@@ -180,7 +188,7 @@ color: #A52A2A"><i class="fa fa-arrows-alt" aria-hidden="true"></i>Hey Earl</hea
 	<!-- trying to adding tabs, that will go between two Id's but will need the backend caught up too for that,  but it will be here -->
 
  
-		<!-- <!-- <td><img src="#">John Mark<br>has a car</td>
+		<!-- <td><img src="#">John Mark<br>has a car</td>
 				<td>Willing to work for 8/hr</td> -->
 	
 
